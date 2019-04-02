@@ -37,24 +37,41 @@
     bottom: 0;
     left: 0;background-image: url(img/bgm.jpg);z-index: -1; "></div>
 <div class="container">
-
+    @if(Session::has('message'))
+        <div id="myAlert" class="alert alert-success">
+            <a href="#" class="close" data-dismiss="alert">&times;</a>
+            <strong>成功！</strong>{{Session::get('message')}}
+        </div>
+    @endif
     <form class="form-signin" method="POST" action="/login">
         {{ csrf_field() }}
         <h2 class="form-signin-heading" style="color: #fff;margin-left: 29%;">Sign in</h2>
         <label for="inputEmail" class="sr-only">邮箱</label>
-        <input type="email" name="email" id="inputEmail" style="margin-bottom: 10px;" class="form-control" placeholder="Email address" required autofocus>
+        <input type="email" name="email" value="{{ old('email') }}" id="inputEmail" style="margin-bottom: 10px;" class="form-control" placeholder="Email address" required autofocus>
         <label for="inputPassword" class="sr-only">密码</label>
-        <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
+        <input type="password" name="password" value="{{ old('password') }}" id="inputPassword" class="form-control" placeholder="Password" required>
         <div class="checkbox">
             <label>
                 <input type="checkbox" value="1" name="is_remember"> 记住我
             </label>
         </div>
+        @if($errors->any())
+            <div class="alert alert-danger">
+                @foreach($errors->all() as $value)
+                    <li>{{ $value }}</li>
+                @endforeach
+            </div>
+        @endif
         <button class="btn btn-lg btn-primary btn-block" style="background-color: #4395FF;border-color: #4395FF;" type="submit">登陆</button>
         <a href="/register" class="btn btn-lg btn-primary btn-block" style="background-color: #4395FF;border-color: #4395FF;" type="submit">去注册>></a>
     </form>
 
 </div> <!-- /container -->
-
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<script>
+    $(".close").click(function(){
+        $("#myAlert").hide();
+    });
+</script>
 </body>
 </html>

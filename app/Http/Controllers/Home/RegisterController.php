@@ -31,8 +31,8 @@ class RegisterController extends Controller
             'password' => '密码'
         ]);*/
         $validator = Validator::make($request->input(),[
-            'name'     => 'required|min:3|max:16|unique:users',
-            'email'    => 'required|unique:users|email',
+            'name'     => 'required|min:3|max:16|unique:users,name',
+            'email'    => 'required|unique:users,email|email',
             'password' => 'required|min:6|max:18|confirmed'
         ],[
             'required' => ':attribute 为必填项',
@@ -57,7 +57,7 @@ class RegisterController extends Controller
         $user->email    = request('email');
         $user->password = bcrypt(request('password'));
         if($user->save()){
-            return  redirect('/login')->with('success','注册成功,请登录');
+            return  redirect('/login')->with('message','注册成功,请登录');
         }else{
             return redirect()->back();
         };
