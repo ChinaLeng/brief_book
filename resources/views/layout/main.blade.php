@@ -51,7 +51,13 @@
 <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/js/wangEditor.min.js"></script>
+        {{--<script src="//unpkg.com/wangeditor/release/wangEditor.min.js"></script>--}}
 <script src="/js/ylaravel.js"></script>
-
+{{--        <script type="text/javascript">
+            var E = window.wangEditor
+            var editor = new E('#editor')
+            // 或者 var editor = new E( document.getElementById('editor') )
+            editor.create()
+        </script>--}}
 </body>
 </html>
