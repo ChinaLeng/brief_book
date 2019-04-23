@@ -17,7 +17,11 @@ class PostController extends Controller
         return view('post.index',compact('postlist'));
     }
     //文章详情页面
-    public function show(Post $post){
+    public function show($id){
+        $post = Post::find($id);
+        if($post == null){
+            abort(404);
+        }
         return view('post.show',compact('post'));
     }
     //添加文章

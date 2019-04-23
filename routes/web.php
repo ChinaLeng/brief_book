@@ -22,7 +22,7 @@ Route::namespace('Home')->group(function (){
     //文章列表
     Route::get('/', 'PostController@index');
     //文章详情
-    Route::get('/posts/{post}', 'PostController@show');
+    Route::get('/posts/{id}', 'PostController@show');
     //添加文章
     Route::match(['get', 'post'],'/create', 'PostController@create');
     //注冊頁面
