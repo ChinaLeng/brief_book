@@ -25,6 +25,10 @@ Route::namespace('Home')->group(function (){
     Route::get('/posts/{id}', 'PostController@show');
     //添加文章
     Route::match(['get', 'post'],'/create', 'PostController@create');
+    //文章编辑展示
+    Route::get('/posts/{id}/edit','PostController@edit');
+    //文章编辑
+    Route::put('/posts/update','PostController@update');
     //注冊頁面
     Route::get('/register', 'RegisterController@index');
     //提交注册

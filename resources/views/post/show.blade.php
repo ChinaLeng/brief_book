@@ -1,5 +1,11 @@
 @extends('layout.main')
 @section('content')
+        @if(Session::has('create'))
+            <div id="myAlert" class="alert alert-success">
+                <a href="#" class="close" data-dismiss="alert">&times;</a>
+                <strong>成功！</strong>{{Session::get('create')}}
+            </div>
+        @endif
         <div class="col-sm-8 blog-main">
             <div class="blog-post">
                 <div style="display:inline-flex">

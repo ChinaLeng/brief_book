@@ -52,4 +52,42 @@ class PostController extends Controller
         }
         return view('post.create');
     }
+
+    /**
+     * 文章编辑展示
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function edit($id){
+        $post = Post::find($id);
+        if($post == null){
+            abort(404);
+        }
+        return view('post.edit',compact('post'));
+    }
+    public function update(Request $request){
+        $validator = Validator::make($request->input(),[
+            'title'    => 'required|min:3|max:100',
+            'content'  => 'required'
+        ],[
+            'required' => ':attribute 为必填项',
+            'min'      => ':attribute 最小为三位',
+            'max'      => ':attribute 最大为一百位',
+        ],[
+            'title'    => '标题',
+            'content'  => '内容'
+        ]);
+        if($validator->fails()){
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+        $post = new Post();
+        $post_id = (int)$request->input('id');
+        $info = $post->where('id',$post_id)->update(request(['title','content']));
+        if($info){
+            return redirect("/posts/{$post_id}")->with('create','编辑成功');
+        }else{
+            return redirect()->back()->withErrors('网络错误请稍后再试~')->withInput();
+        }
+//        dd($request->input());
+    }
 }
