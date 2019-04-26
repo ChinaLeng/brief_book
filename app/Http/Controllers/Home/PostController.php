@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Home;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use \App\Model\Post;
+use Illuminate\Support\Facades\Auth;
 use Validator;
 class PostController extends Controller
 {
+
     //文章列表
     public function index(){
         //"select * from `posts` order by `created_at` desc"
@@ -44,7 +46,9 @@ class PostController extends Controller
 /*            dump($request->except('_token'));
             dump($request->input());
             dd(request(['title','content']));*/
-            if(Post::create(request(['title','content']))){
+            $user_id = Auth::id();
+            $merage = array_merge(request(['title','content']),compact('user_id'));
+            if(Post::create($merage)){
                 return redirect('/')->with('create','发布成功');
             }else{
                 return redirect()->back()->withErrors('网络错误请稍后再试~')->withInput();
@@ -65,6 +69,12 @@ class PostController extends Controller
         }
         return view('post.edit',compact('post'));
     }
+
+    /**
+     * 文章更新
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update(Request $request){
         $validator = Validator::make($request->input(),[
             'title'    => 'required|min:3|max:100',
@@ -88,6 +98,24 @@ class PostController extends Controller
         }else{
             return redirect()->back()->withErrors('网络错误请稍后再试~')->withInput();
         }
-//        dd($request->input());
+    }
+
+    /**
+     * 文章的删除
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     */
+    public function delete($id){
+        $post = Post::find($id);
+        if($post == null){
+            abort(404);
+        }
+        $info = Post::where('id',$id)->delete();
+        if($info){
+            return redirect('/')->with('create','删除成功');
+        }else{
+            return redirect()->back()->withErrors('网络错误请稍后再试~');
+        }
     }
 }

@@ -4,13 +4,7 @@
         <form action="/posts/update" method="POST">
             {{ method_field('PUT') }}
             {{ csrf_field() }}
-            @if($errors->any())
-                <div class="alert alert-danger">
-                    @foreach($errors->all() as $value)
-                        <li>{{ $value }}</li>
-                    @endforeach
-                </div>
-            @endif
+            @include("layout.errors")
             <input type="hidden" name="id" value="{{ $post->id }}">
             <div class="form-group">
                 <label>标题</label>

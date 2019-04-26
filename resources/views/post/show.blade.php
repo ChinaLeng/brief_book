@@ -1,11 +1,6 @@
 @extends('layout.main')
 @section('content')
-        @if(Session::has('create'))
-            <div id="myAlert" class="alert alert-success">
-                <a href="#" class="close" data-dismiss="alert">&times;</a>
-                <strong>成功！</strong>{{Session::get('create')}}
-            </div>
-        @endif
+    @include('layout.success')
         <div class="col-sm-8 blog-main">
             <div class="blog-post">
                 <div style="display:inline-flex">
@@ -13,7 +8,7 @@
                     <a style="margin: auto"  href="/posts/{{ $post->id }}/edit">
                         <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                     </a>
-                    <a style="margin: auto"  href="/posts/62/delete">
+                    <a style="margin: auto"  href="/posts/{{ $post->id }}/delete">
                         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                     </a>
                 </div>

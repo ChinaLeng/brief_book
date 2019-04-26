@@ -32,17 +32,12 @@
     </div>
     <div style="height: 20px;">
     </div>
-    @if(Session::has('create'))
-        <div id="myAlert" class="alert alert-success">
-            <a href="#" class="close" data-dismiss="alert">&times;</a>
-            <strong>成功！</strong>{{Session::get('create')}}
-        </div>
-    @endif
+    @include('layout.success')
     <div>
         @foreach($postlist as $post)
         <div class="blog-post">
             <h2 class="blog-post-title"><a href="/posts/{{ $post->id }}" >{{ $post->title }}</a></h2>
-            <p class="blog-post-meta">{{ $post->created_at->toFormattedDateString() }} <a href="/user/5">Kassandra Ankunding2</a></p>
+            <p class="blog-post-meta">{{ $post->created_at->toFormattedDateString() }} <a href="/user/5">{{ $post->user->name }}</a></p>
 
             <p>{!!str_limit($post->content,140,'...')!!}
             <p class="blog-post-meta">赞 0  | 评论 0</p>

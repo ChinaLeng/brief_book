@@ -29,6 +29,8 @@ Route::namespace('Home')->group(function (){
     Route::get('/posts/{id}/edit','PostController@edit');
     //文章编辑
     Route::put('/posts/update','PostController@update');
+    //文章删除
+    Route::get('/posts/{id}/delete','PostController@delete');
     //注冊頁面
     Route::get('/register', 'RegisterController@index');
     //提交注册

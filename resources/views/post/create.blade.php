@@ -4,13 +4,7 @@
         <div class="col-sm-8 blog-main">
             <form action="/create" method="POST">
                 {{ csrf_field() }}
-                @if($errors->any())
-                    <div class="alert alert-danger">
-                        @foreach($errors->all() as $value)
-                            <li>{{ $value }}</li>
-                        @endforeach
-                    </div>
-                @endif
+                @include("layout.errors")
                 <div class="form-group">
                     <label>标题</label>
                     <input name="title" type="text" class="form-control" value="{{ old('title') }}" placeholder="请输入您的标题" required>
